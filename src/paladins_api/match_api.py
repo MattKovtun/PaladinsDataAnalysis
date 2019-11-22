@@ -8,6 +8,7 @@ class MatchApi(BasicApi):
         super().__init__(dev_id, auth_key)
 
     def get_top_matches(self, verbose=False):
+        # Response 200, empty array
         endpoint = 'gettopmatches'
         url = self._url_builder(endpoint)
         return self._send_request(url, verbose)
@@ -15,6 +16,15 @@ class MatchApi(BasicApi):
     def get_motd(self, verbose=False):
         endpoint = 'getmotd'
         url = self._url_builder(endpoint)
+        return self._send_request(url, verbose)
+
+    def get_match_ids_by_queue(self, queue, date, hour, mm='', verbose=False):
+        # Only valid values for mm are “00”, “10”, “20”, “30”, “40”, “50”
+        endpoint = 'getmatchidsbyqueue'
+        url = self._url_builder(endpoint, queue)
+        url = url + '/' + date + '/' + hour
+        if mm:
+            url += ',' + mm
         return self._send_request(url, verbose)
 
     def _url_builder(self, endpoint, match_id=''):

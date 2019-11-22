@@ -1,4 +1,5 @@
 .idea
+.DS_Store
 src/__pycache__
 src/dev_creds.py
 src/paladins_api/__pycache__

@@ -22,14 +22,22 @@ class PlayerApi(BasicApi):
         url = self._url_builder(endpoint, player_id)
         return self._send_request(url, verbose)
 
-    def _url_builder(self, endpoint, player):
-        return self.paladins_url + '/' \
-               + endpoint + JSON + '/' \
-               + self.dev_id + '/' \
-               + self.make_signature(endpoint) + '/' \
-               + self.session_id + '/' \
-               + time_stamp() + '/' \
-               + player
+    def get_queue_stats(self, player_id, queue, verbose=False):
+        endpoint = 'getqueuestats'
+        url = self._url_builder(endpoint, player_id, queue)
+        return self._send_request(url, verbose)
+
+    def _url_builder(self, endpoint, player, queue=''):
+        base_url = self.paladins_url + '/' \
+                   + endpoint + JSON + '/' \
+                   + self.dev_id + '/' \
+                   + self.make_signature(endpoint) + '/' \
+                   + self.session_id + '/' \
+                   + time_stamp() + '/' \
+                   + player
+        if queue:
+            base_url += '/' + queue
+        return base_url
 
 
 if __name__ == "__main__":
