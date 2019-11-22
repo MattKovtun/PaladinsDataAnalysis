@@ -34,12 +34,26 @@ def get_player(session_id, player, verbose=False):
 
     return r
 
+def get_player_id_by_name(session_id, player_name, verbose=False):
+    endpoint = 'getplayeridbyname'
+    url = PALADINS_URL + '/' + endpoint + JSON + '/' + DEV_ID + '/' + make_signature(endpoint) + '/' + session_id + '/' + time_stamp() + '/' + player_name
+
+    r = requests.get(url).json()
+
+    if verbose:
+        print(r)
+
+    return r
+
 
 if __name__ == "__main__":
     session_id = create_session()
 
     player = 'StanisBarathrum'
-    player = 'Schmuzzi'
+    # player = 'Schmuzzi'
+    player = 'AttackOnAttack'
+
 
     data = get_player(session_id, player, True)
-    # print(data)
+    # player_id = get_player_id_by_name(session_id, player, True)
+    print(data)
