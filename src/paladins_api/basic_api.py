@@ -10,7 +10,7 @@ class BasicApi:
         self.dev_id = dev_id
         self.auth_key = auth_key
         self.paladins_url = PALADINS_URL
-        self.session_id = 'No valid session'
+        self.session_id = self.create_session()
 
     def create_session(self, verbose=False):
         endpoint = 'createsession'
@@ -25,12 +25,18 @@ class BasicApi:
         if verbose:
             print(r)
 
-        self.session_id = r['session_id']
-        return self
+        return r['session_id']
 
     def make_signature(self, endpoint):
         sig = self.dev_id + endpoint + self.auth_key + time_stamp()
         return hashlib.md5(sig.encode('utf-8')).hexdigest()
+
+    def _send_request(self, url, verbose=False):
+        r = requests.get(url)
+        r = r.json()
+        if verbose:
+            print(r)
+        return r
 
     def _url_builder(self, endpoint):
         pass
