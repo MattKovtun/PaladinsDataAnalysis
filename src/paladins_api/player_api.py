@@ -11,9 +11,17 @@ class PlayerApi(BasicApi):
 
     def get_player(self, player, verbose=False):
         endpoint = 'getplayer'
-        url = self._url_builder(player, endpoint)
+        url = self._url_builder(endpoint, player)
         r = requests.get(url).json()
+        if verbose:
+            print(r)
 
+        return r
+
+    def get_player_id_by_name(self, player, verbose=False):
+        endpoint = 'getplayeridbyname'
+        url = self._url_builder(endpoint, player)
+        r = requests.get(url).json()
         if verbose:
             print(r)
 
@@ -34,3 +42,4 @@ if __name__ == "__main__":
 
     api = PlayerApi(DEV_ID, AUTH_KEY).create_session()
     api.get_player('StanisBarathrum', True)
+    api.get_player_id_by_name('StanisBarathrum', True)

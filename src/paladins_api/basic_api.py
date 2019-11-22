@@ -14,7 +14,12 @@ class BasicApi:
 
     def create_session(self, verbose=False):
         endpoint = 'createsession'
-        session_url = self._url_builder(endpoint)
+        session_url = self.paladins_url + '/' \
+                      + endpoint + JSON + '/' \
+                      + self.dev_id + '/' \
+                      + self.make_signature(endpoint) + '/' \
+                      + time_stamp()
+
         r = requests.get(session_url).json()
 
         if verbose:
@@ -27,9 +32,5 @@ class BasicApi:
         sig = self.dev_id + endpoint + self.auth_key + time_stamp()
         return hashlib.md5(sig.encode('utf-8')).hexdigest()
 
-    def _url_builder(self, endpoint, *args):
-        return self.paladins_url + '/' \
-               + endpoint + JSON + '/' \
-               + self.dev_id + '/' \
-               + self.make_signature(endpoint) + '/' \
-               + time_stamp()
+    def _url_builder(self, endpoint):
+        pass
