@@ -18,6 +18,11 @@ class MatchApi(BasicApi):
         url = self._url_builder(endpoint)
         return self._send_request(url, verbose)
 
+    def get_match_details(self, match_id, verbose=False):
+        endpoint = 'getmatchdetails'
+        url = self._url_builder(endpoint, match_id)
+        return self._send_request(url, verbose)
+
     def get_match_ids_by_queue(self, queue, date, hour, mm='', verbose=False):
         # Only valid values for mm are “00”, “10”, “20”, “30”, “40”, “50”
         endpoint = 'getmatchidsbyqueue'

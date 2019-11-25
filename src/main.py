@@ -27,6 +27,9 @@ player_id = '5225410'
 
 
 api = MatchApi(DEV_ID, AUTH_KEY)
-data = api.get_match_ids_by_queue(SIEGE, '20191121', '-1', verbose=False)
+# data = api.get_match_ids_by_queue(SIEGE, '20191121', '-1', verbose=False)
+# pprint.pprint(data)
 
+
+data = api.get_match_details('905339427')
 pprint.pprint(data)
