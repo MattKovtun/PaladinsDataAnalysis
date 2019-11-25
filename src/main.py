@@ -8,6 +8,7 @@ from src.paladins_api.player_api import PlayerApi
 from src.paladins_api.match_api import MatchApi
 from src.constants import SIEGE
 from src.paladins_api.match import Match
+from src.utils import time_stamp, write_all_matches_ids
 #
 # api = PlayerApi(DEV_ID, AUTH_KEY)
 # # api.get_player('StanisBarathrum', True)
@@ -27,13 +28,18 @@ from src.paladins_api.match import Match
 
 
 api = MatchApi(DEV_ID, AUTH_KEY)
-# data = api.get_match_ids_by_queue(SIEGE, '20191121', '-1', verbose=False)
+today = '20191118'
+data = api.get_match_ids_by_queue(SIEGE, today, hour='-1', verbose=False)
+
+write_all_matches_ids(today, data)
+
+
+#
+#
+# data = api.get_match_details('904893657')
+#
 # pprint.pprint(data)
-
-
-data = api.get_match_details('904893657')
-
-pprint.pprint(data)
-
-m = Match(data)
-print(m.get_bans())
+#
+# m = Match(data)
+# print(m.get_bans())
+# print(m.get_league_tiers())

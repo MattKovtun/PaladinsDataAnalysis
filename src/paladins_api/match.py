@@ -1,9 +1,10 @@
 class Match:
-    def __init__(self, match_info):
-        self.match_info = match_info
+    def __init__(self, data):
+        self.data = data
+        self.number_of_players = len(self.data)
 
     def get_bans(self):
-        player = self.match_info[0]
+        player = self.data[0]  # they all are the same
         number_of_bans = 4
         hero_id = 'BanId'
         hero_name = 'Ban_'
@@ -14,5 +15,12 @@ class Match:
 
         return bans
 
+    def get_league_tiers(self):
+        league_tier = 'League_Tier'
 
+        league_tiers = [-1] * self.number_of_players
 
+        for i in range(self.number_of_players):
+            league_tiers[i] = self.data[i][league_tier]
+
+        return league_tiers

@@ -19,6 +19,8 @@ TDM = '469'
 
 RANKED_SIEGE = '486'
 
+DATA_DAILY = 'data/daily/'
+
 # LIMITS
 # concurrent_sessions:  50
 # sessions_per_day: 500
