@@ -17,6 +17,8 @@ ENGLISH = LANGUAGES['ENGLISH']
 SIEGE = '424'
 TDM = '469'
 
+RANKED_SIEGE = '486'
+
 # LIMITS
 # concurrent_sessions:  50
 # sessions_per_day: 500

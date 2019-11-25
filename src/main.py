@@ -1,5 +1,4 @@
 import sys, os
-
 sys.path.insert(0, os.path.abspath('..'))
 
 import pprint
@@ -8,16 +7,17 @@ from src.dev_creds import DEV_ID, AUTH_KEY
 from src.paladins_api.player_api import PlayerApi
 from src.paladins_api.match_api import MatchApi
 from src.constants import SIEGE
-
+from src.paladins_api.match import Match
+#
 # api = PlayerApi(DEV_ID, AUTH_KEY)
-# api.get_player('StanisBarathrum', True)
-# api.get_player_id_by_name('StanisBarathrum', True)
-#
-player_id = '5225410'
-#
+# # api.get_player('StanisBarathrum', True)
+# # api.get_player_id_by_name('StanisBarathrum', True)
+# #
+# player_id = '5225410'
+# #
 # data = api.get_math_history(player_id=player_id)
 # pprint.pprint(data)
-#
+# #
 #
 # match_history = api.get_queue_stats(player_id, SIEGE, True)
 # pprint.pprint(match_history)
@@ -31,5 +31,9 @@ api = MatchApi(DEV_ID, AUTH_KEY)
 # pprint.pprint(data)
 
 
-data = api.get_match_details('905339427')
+data = api.get_match_details('904893657')
+
 pprint.pprint(data)
+
+m = Match(data)
+print(m.get_bans())
