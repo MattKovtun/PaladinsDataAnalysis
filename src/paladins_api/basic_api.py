@@ -18,13 +18,13 @@ class BasicApi:
                       + endpoint + JSON + '/' \
                       + self.dev_id + '/' \
                       + self.make_signature(endpoint) + '/' \
-                      + time_stamp()
+                      + str(time_stamp())
 
         r = self._send_request(session_url, verbose)
         return r['session_id']
 
     def make_signature(self, endpoint):
-        sig = self.dev_id + endpoint + self.auth_key + time_stamp()
+        sig = self.dev_id + endpoint + self.auth_key + str(time_stamp())
         return hashlib.md5(sig.encode('utf-8')).hexdigest()
 
     def _send_request(self, url, verbose=False):

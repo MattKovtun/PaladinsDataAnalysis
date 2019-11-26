@@ -38,7 +38,7 @@ class MatchApi(BasicApi):
               + self.dev_id + '/' \
               + self.make_signature(endpoint) + '/' \
               + self.session_id + '/' \
-              + time_stamp()
+              + str(time_stamp())
         if match_id:
             url += '/' + match_id
 
