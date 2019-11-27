@@ -43,10 +43,3 @@ class MatchApi(BasicApi):
             url += '/' + match_id
 
         return url
-
-
-if __name__ == "__main__":
-    from src.dev_creds import DEV_ID, AUTH_KEY
-
-    api = MatchApi(DEV_ID, AUTH_KEY)
-    api.get_motd(True)
