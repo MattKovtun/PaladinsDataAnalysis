@@ -5,7 +5,7 @@ class Match:
 
     def get_bans(self):
         player = self.data[0]  # they all are the same
-        number_of_bans = 4
+        number_of_bans = 4     # in current patch it's constant
         hero_id = 'BanId'
         hero_name = 'Ban_'
 
@@ -24,3 +24,8 @@ class Match:
             league_tiers[i] = self.data[i][league_tier]
 
         return league_tiers
+
+    def get_time(self):
+        return self.data[0]["Entry_Datetime"]
+
+
