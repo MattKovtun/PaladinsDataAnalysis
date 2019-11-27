@@ -1,8 +1,8 @@
 import requests
 import hashlib
 
-from src.utils import time_stamp
-from src.constants import JSON, PALADINS_URL
+from paladins_api.utils import time_stamp
+from paladins_api.constants import JSON, PALADINS_URL
 
 
 class BasicApi:

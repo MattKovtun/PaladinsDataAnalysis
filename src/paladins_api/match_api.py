@@ -1,6 +1,6 @@
-from src.constants import JSON
-from src.utils import time_stamp
-from src.paladins_api.basic_api import BasicApi
+from paladins_api.constants import JSON
+from paladins_api.utils import time_stamp
+from paladins_api.basic_api import BasicApi
 
 
 class MatchApi(BasicApi):

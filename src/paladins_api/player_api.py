@@ -1,6 +1,6 @@
-from src.paladins_api.basic_api import BasicApi
-from src.utils import time_stamp
-from src.constants import JSON
+from paladins_api.basic_api import BasicApi
+from paladins_api.utils import time_stamp
+from paladins_api.constants import JSON
 
 
 class PlayerApi(BasicApi):
@@ -40,9 +40,5 @@ class PlayerApi(BasicApi):
         return base_url
 
 
-if __name__ == "__main__":
-    from src.dev_creds import AUTH_KEY, DEV_ID
 
-    api = PlayerApi(DEV_ID, AUTH_KEY)
-    api.get_player('StanisBarathrum', True)
-    api.get_player_id_by_name('StanisBarathrum', True)
+

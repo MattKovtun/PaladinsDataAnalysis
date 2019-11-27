@@ -2,7 +2,7 @@ import os
 
 import matplotlib.pyplot as plt
 
-from src.utils import DATA_DAILY
+from src.paladins_api.utils import DATA_DAILY
 
 
 DATA_DAILY = '../' + DATA_DAILY
