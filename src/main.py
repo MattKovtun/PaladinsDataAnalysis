@@ -8,7 +8,7 @@ import plotly.graph_objs as go
 
 app = dash.Dash('Hello World')
 
-df = pd.read_csv("../data/processed/v1.csv")
+df = pd.read_csv("../data/processed/v2.csv")
 df['time'] = pd.to_datetime(df['time'])
 df['date'] = df['time'].dt.date
 x = df['ban'].unique()
@@ -53,9 +53,14 @@ def update_graph(val):
 
     return {
         'data':
-            [go.Bar({'x': list(d.keys()), 'y': list(d.values())})]
+            [go.Bar({'x': list(d.keys()), 'y': list(d.values())})],
+        'layout': go.Layout(yaxis={'tickformat': ',d'})
     }
 
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', debug=True)
+
+# add second graph on click
+# refactor code
+# add titles
