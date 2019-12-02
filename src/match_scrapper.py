@@ -1,21 +1,20 @@
-import sys, os
-
-sys.path.insert(0, os.path.abspath('../'))
+# import sys, os
+#
+# sys.path.insert(0, os.path.abspath('../'))
 
 import random, json
 from datetime import timedelta, datetime
 
-from src.dev_creds import DEV_ID, AUTH_KEY
-from src.paladins_api.match_api import MatchApi
-from src.constants import RANKED_SIEGE
-from src.paladins_api.match import Match
+from dev_creds import DEV_ID, AUTH_KEY
+from paladins_api.match_api import MatchApi
+from constants import RANKED_SIEGE
+from paladins_api.match import Match
 
 
-def scrap_ranked_matches():
+def scrap_ranked_matches(date):
     api = MatchApi(DEV_ID, AUTH_KEY)
-    yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y%m%d")
-    data = api.get_match_ids_by_queue(RANKED_SIEGE, yesterday, hour='-1', verbose=False)
-    pp = '../data/daily/ranked_siege/' + yesterday
+    data = api.get_match_ids_by_queue(RANKED_SIEGE, date, hour='-1', verbose=False)
+    pp = '../data/daily/ranked_siege/' + date
 
     with open(pp, 'w') as f:
         f.write(str(len(data)) + '\n')
@@ -50,7 +49,7 @@ def matches_to_tiers(matches_id, n_matches=20):
 
 
 if __name__ == "__main__":
-    # scrap_ranked_matches()
-    # this file has to be present in data/daily
-    matches_id = '20191126'
-    matches_to_tiers(matches_id, 1)
+    date = '20191129'
+    # scrap_ranked_matches(date)
+
+    matches_to_tiers(date, 400)
