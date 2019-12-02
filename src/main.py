@@ -29,7 +29,7 @@ def create_range_slider():
 app.layout = html.Div([
     html.Div([
         html.H4('Paladins ban analysis'),
-        dcc.Graph(id='main-graph', config={'displayModeBar': True})]),
+        dcc.Graph(id='main-graph')]),
 
     html.Div([create_range_slider()], style={"width": "95%"}),
     html.Div([
