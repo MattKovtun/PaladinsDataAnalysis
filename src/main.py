@@ -18,7 +18,7 @@ def create_range_slider():
     mn = min(uniq)
     mx = max(uniq)
     return dcc.RangeSlider(
-        id='slider',
+        id='tier-slider',
         min=mn,
         max=mx,
         marks={int(i): {'label': TIERS[i], 'style': {'color': 'grey'}} for i in uniq},
@@ -29,19 +29,38 @@ def create_range_slider():
 app.layout = html.Div([
     html.Div([
         html.H4('Paladins ban analysis'),
-        dcc.Graph(id='my-graph',
-                  config={
-                      'displayModeBar': True}),
+        dcc.Graph(id='main-graph', config={'displayModeBar': True})]),
+
+    html.Div([create_range_slider()], style={"width": "95%"}),
+    html.Div([
+        dcc.Graph(id='hero-graph', style={"width": "50%"}),
     ]),
 
-    html.Div([create_range_slider()],
-             style={"width": "95%"})],
-    style={"max-width": "1440px", "margin": "auto"})
+], style={"max-width": "1440px", "margin": "auto"})
 
 
-@app.callback(Output('my-graph', 'figure'),
-              [Input('slider', 'value')])
-def update_graph(val):
+@app.callback(Output('hero-graph', 'figure'),
+              [Input('main-graph', 'clickData'),
+               Input('tier-slider', 'value')])
+def update_hero_graph(click, val):
+    hero = click['points'][0]['label']
+
+    data_selection = df[(df['tier'] >= val[0])
+                        & (df['tier'] <= val[1])
+                        & (df['ban'] == hero)].groupby('tier').count()['time']
+
+    traces = []
+
+    for k in data_selection.keys():
+        traces.append(go.Bar(x=[hero], y=[data_selection[k]], name=TIERS[k]))
+
+    return {'data': traces,
+            'layout': go.Layout()}
+
+
+@app.callback(Output('main-graph', 'figure'),
+              [Input('tier-slider', 'value')])
+def update_main_graph(val):
     data_selection = df[(df['tier'] >= val[0]) & (df['tier'] <= val[1])].groupby('ban').count()['time']
 
     d = copy.deepcopy(data)
