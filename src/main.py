@@ -6,15 +6,11 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
 
-app = dash.Dash('Hello World')
+from utils import prepare_data
+from constants import TIERS
 
-df = pd.read_csv("../data/processed/v2.csv")
-df['time'] = pd.to_datetime(df['time'])
-df['date'] = df['time'].dt.date
-x = df['ban'].unique()
-x.sort()
-y = [0] * len(x)
-data = dict(zip(x, y))
+app = dash.Dash('Hello World')
+df, data = prepare_data("../data/processed/v2.csv")
 
 
 def create_range_slider():
@@ -25,13 +21,14 @@ def create_range_slider():
         id='slider',
         min=mn,
         max=mx,
-        marks={int(i): str(i) for i in uniq},
+        marks={int(i): {'label': TIERS[i], 'style': {'color': 'grey'}} for i in uniq},
         value=[mn, mn],
         updatemode='drag')
 
 
 app.layout = html.Div([
     html.Div([
+        html.H4('Paladins ban analysis'),
         dcc.Graph(id='my-graph',
                   config={
                       'displayModeBar': True}),

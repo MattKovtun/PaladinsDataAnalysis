@@ -29,9 +29,31 @@ RANKED_SIEGE = '486'
 TIER_N = 28
 
 # tier - League tier, unranked = tier 0
-# Bronze V = 1, Bronze IV = 2, Bronze III = 3, Bronze II = 4, Bronze I = 5
-# Silver V = 6, Silver IV = 7, Silver III = 8, Silver II = 9, Silver I = 10
-# Gold V = 11, Gold IV = 12, Gold III = 13, Gold II = 14, Gold I = 15
-# Platinum V = 16, Platinum IV = 17, Platinum III = 18, Platinum II = 19, Platinum I = 20
-# Diamond V = 21, Diamond IV = 22, Diamond III = 23, Diamond II = 24, Diamond I = 25
-# Masters I = 26, Grandmaster = 27
+
+TIERS = {1: 'Bronze V',
+         2: 'Bronze IV',
+         3: 'Bronze III',
+         4: 'Bronze II',
+         5: 'Bronze I',
+         6: 'Silver V',
+         7: 'Silver IV',
+         8: 'Silver III',
+         9: 'Silver II',
+         10: 'Silver I',
+         11: 'Gold V',
+         12: 'Gold IV',
+         13: 'Gold III',
+         14: 'Gold II',
+         15: 'Gold I',
+         16: 'Platinum V',
+         17: 'Platinum IV',
+         18: 'Platinum III',
+         19: 'Platinum II',
+         20: 'Platinum I',
+         21: 'Diamond V',
+         22: 'Diamond IV',
+         23: 'Diamond III',
+         24: 'Diamond II',
+         25: 'Diamond I',
+         26: 'Masters I',
+         27: 'Grandmaster'}
