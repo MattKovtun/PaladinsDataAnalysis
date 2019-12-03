@@ -1,6 +1,3 @@
-# import sys, os
-#
-# sys.path.insert(0, os.path.abspath('../'))
 
 import random, json
 from datetime import timedelta, datetime
@@ -49,7 +46,7 @@ def matches_to_tiers(matches_id, n_matches=20):
 
 
 if __name__ == "__main__":
-    date = '20191129'
+    date = '20191130'
     # scrap_ranked_matches(date)
 
-    matches_to_tiers(date, 400)
+    matches_to_tiers(date, 200)
