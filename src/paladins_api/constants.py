@@ -11,3 +11,5 @@ LANGUAGES = {
     'RUSSIAN': '11',
     'POLISH': '12',
     'TURKISH': '13'}
+
+ENGLISH = LANGUAGES['ENGLISH']
