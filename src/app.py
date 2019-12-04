@@ -10,7 +10,7 @@ from callbacks.hero_comparison_graph import hero_comparison_callback
 
 app = dash.Dash('Hello World')
 
-filename = 'v3.json'
+filename = 'v3.csv'
 df = prepare_data("../data/processed/" + filename)
 hero_list = create_hero_list(df)
 
