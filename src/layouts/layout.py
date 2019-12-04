@@ -11,7 +11,7 @@ def create_range_slider(df, tiers):
         min=mn,
         max=mx,
         marks={int(i): {'label': tiers[i], 'style': {'color': 'grey'}} for i in uniq},
-        value=[mn, mn],
+        value=[mn, mx],
         updatemode='drag')
 
 
