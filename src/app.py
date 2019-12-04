@@ -9,7 +9,7 @@ from constants import TIERS
 from layout import render_layout
 
 app = dash.Dash('Hello World')
-df, data = prepare_data("../data/processed/v2.csv")
+df, data = prepare_data("../data/processed/v3.csv")
 
 app.layout = render_layout(df, TIERS)
 
