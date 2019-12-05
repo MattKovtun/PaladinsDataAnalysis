@@ -27,6 +27,17 @@ class BasicApi:
         sig = self.dev_id + endpoint + self.auth_key + str(time_stamp())
         return hashlib.md5(sig.encode('utf-8')).hexdigest()
 
+    def get_data_used(self, verbose=False):
+        endpoint = 'getdataused'
+        url = self.paladins_url + '/' \
+              + endpoint + JSON + '/' \
+              + self.dev_id + '/' \
+              + self.make_signature(endpoint) + '/' \
+              + self.session_id + '/' \
+              + str(time_stamp())
+
+        return self._send_request(url, verbose)
+
     def _send_request(self, url, verbose=False):
         if verbose:
             print("URL:", url)

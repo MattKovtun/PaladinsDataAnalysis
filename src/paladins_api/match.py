@@ -3,9 +3,10 @@ class Match:
         self.data = data
         self.number_of_players = len(self.data)
 
+    @property
     def get_bans(self):
         player = self.data[0]  # they all are the same
-        number_of_bans = 4     # in current patch it's constant
+        number_of_bans = 4  # in current patch it's constant
         hero_id = 'BanId'
         hero_name = 'Ban_'
 
@@ -15,6 +16,7 @@ class Match:
 
         return bans
 
+    @property
     def get_league_tiers(self):
         league_tier = 'League_Tier'
 
@@ -25,7 +27,10 @@ class Match:
 
         return league_tiers
 
+    @property
+    def get_match_id(self):
+        return self.data[0]['Match']
+
+    @property
     def get_time(self):
-        return self.data[0]["Entry_Datetime"]
-
-
+        return self.data[0]['Entry_Datetime']
