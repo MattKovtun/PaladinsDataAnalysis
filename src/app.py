@@ -12,17 +12,18 @@ app = dash.Dash('Hello World')
 
 filename = 'v3.csv'
 df = prepare_data("../data/processed/ban_summary/" + filename)
-hero_list = create_hero_list(df)
+filename = 'v1.csv'
+ddf = prepare_data("../data/processed/match_summary/" + filename)
 
+hero_list = create_hero_list(df)
 app.layout = render_layout(df, TIERS)
 
 hero_graph_callback(app, df, TIERS)
 main_graph_callback(app, df, hero_list)
-hero_comparison_callback(app)
+hero_comparison_callback(app, ddf, TIERS)
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', debug=True)
-
 
 # refactor code
 # add map selection

@@ -9,5 +9,4 @@ class MatchPlayer:
         self.healing = data['Healing']
         self.map = data['Map_Game']
         self.tier = data['League_Tier']
-
-
+        self.time = data['Entry_Datetime']

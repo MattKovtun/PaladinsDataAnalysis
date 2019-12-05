@@ -5,7 +5,6 @@ def prepare_data(filename):
     df = pd.read_csv(filename)
     df['time'] = pd.to_datetime(df['time'])
     df['date'] = df['time'].dt.date
-
     return df
 
 

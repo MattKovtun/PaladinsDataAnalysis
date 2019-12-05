@@ -105,16 +105,18 @@ def form_match_summary(name):
                              m.healing,
                              m.damage_taken,
                              m.damage_done,
-                             m.tier])
+                             m.tier,
+                             m.time])
 
-    df = pd.DataFrame(data, columns=['matchid', 'hero', 'winner', 'healing', 'damage_taken', 'damage_done', 'tier'])
+    df = pd.DataFrame(data,
+                      columns=['matchid', 'hero', 'winner', 'healing', 'damage_taken', 'damage_done', 'tier', 'time'])
     processed_file = '../data/processed/match_summary/' + name
     df.to_csv(processed_file, index=False)
 
 
 if __name__ == "__main__":
-    date = '20191202'
-    scrap_ranked_matches(date)
-    matches_to_tiers(date, 1000)
-    form_ban_summary_csv('v3.csv')
+    date = '20191201'
+    # scrap_ranked_matches(date)
+    # matches_to_tiers(date, 1000)
+    # form_ban_summary_csv('v3.csv')
     form_match_summary('v1.csv')
