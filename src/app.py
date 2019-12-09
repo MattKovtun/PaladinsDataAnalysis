@@ -13,7 +13,6 @@ app = dash.Dash('Hello World')
 
 filename = 'v3.csv'
 df = prepare_data("../data/processed/ban_summary/" + filename)
-filename = 'v1.csv'
 ddf = prepare_data("../data/processed/match_summary/" + filename)
 
 hero_dict = create_hero_list(df)

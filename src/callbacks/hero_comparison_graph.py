@@ -26,4 +26,4 @@ def hero_comparison_callback(app, df, tiers):
         return {
             'data':
                 [go.Scatter(x=x, y=j, name=dd_val[i], showlegend=True) for i, j in enumerate(y)],
-            'layout': go.Layout(yaxis={'tickformat': ',d'})}
+            'layout': go.Layout(yaxis={'tickformat': ',d'}, title='Avg stat in won game')}

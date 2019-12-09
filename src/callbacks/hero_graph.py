@@ -20,4 +20,5 @@ def hero_graph_callback(app, df, tiers, default_hero):
         for k in data_selection.keys():
             traces.append(go.Bar(x=[hero], y=[data_selection[k]], name=tiers[k]))
 
-        return {'data': traces}
+        return {'data': traces,
+                'layout': go.Layout(title='Bans per tier')}
