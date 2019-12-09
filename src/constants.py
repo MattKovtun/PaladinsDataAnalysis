@@ -57,3 +57,6 @@ TIERS = {1: 'Bronze V',
          25: 'Diamond I',
          26: 'Masters I',
          27: 'Grandmaster'}
+
+
+DEFAULT_HERO = 'Androxus'

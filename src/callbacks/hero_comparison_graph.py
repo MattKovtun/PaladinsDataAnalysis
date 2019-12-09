@@ -4,22 +4,26 @@ import plotly.graph_objs as go
 
 def hero_comparison_callback(app, df, tiers):
     @app.callback(Output('hero-comparison-graph', 'figure'),
-                  [Input('main-graph', 'clickData'),
-                   Input('tier-slider', 'value')])
-    def update_hero_comparison_graph(click, val):
-        hero = click['points'][0]['label']
+                  [Input('tier-slider', 'value'),
+                   Input('hero-dropdown', 'value'),
+                   Input('axis-dropdown', 'value')])
+    def update_hero_comparison_graph(val, dd_val, y_axe):
         data_selection = df[(df['tier'] >= val[0])
                             & (df['tier'] <= val[1])]
 
-        dd = data_selection[data_selection['hero'] == hero].groupby('tier')['damage_taken'].mean()
+        data_selection = data_selection[data_selection['hero'].isin(dd_val)]
+        dd = data_selection.groupby(['tier', 'hero'])[y_axe].mean()
+        selected_tiers = range(val[0], val[1] + 1)
 
-        x = []
         y = []
-        for k in dd.keys():
-            x.append(tiers[k])
-            y.append(dd[k])
+        x = [tiers[i] for i in selected_tiers]
+        for h in dd_val:
+            tmp_y = []
+            for tier in selected_tiers:
+                tmp_y.append(dd[(tier, h)])
+            y.append(tmp_y)
 
         return {
             'data':
-                [go.Scatter(x=x, y=y)],
+                [go.Scatter(x=x, y=j, name=dd_val[i], showlegend=True) for i, j in enumerate(y)],
             'layout': go.Layout(yaxis={'tickformat': ',d'})}
