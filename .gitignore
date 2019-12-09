@@ -1,6 +1,7 @@
 .idea
+data/
+src/dev_creds.py
+src/cache
 **/.DS_Store
 **/.ipynb_checkpoints
 **/__pycache__
-src/dev_creds.py
-data/

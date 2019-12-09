@@ -2,17 +2,16 @@ from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 
 
-def hero_comparison_callback(app, df, tiers):
-    @app.callback(Output('hero-comparison-graph', 'figure'),
-                  [Input('tier-slider', 'value'),
-                   Input('hero-dropdown', 'value'),
-                   Input('axis-dropdown', 'value')])
-    def update_hero_comparison_graph(val, dd_val, y_axe):
-        data_selection = df[(df['tier'] >= val[0])
-                            & (df['tier'] <= val[1])]
+def hero_comparison_callback(app, tiers, global_store_fn):
 
-        data_selection = data_selection[data_selection['hero'].isin(dd_val)]
-        dd = data_selection.groupby(['tier', 'hero'])[y_axe].mean()
+    @app.callback(Output('hero-comparison-graph', 'figure'),
+                  [Input('hero-dropdown', 'value'),
+                   Input('axis-dropdown', 'value'),
+                   Input('signal', 'children')])
+    def update_hero_comparison_graph(dd_val, y_axe, val):
+        dd = global_store_fn(val)['match']
+        dd = dd[dd['hero'].isin(dd_val)]
+        dd = dd.groupby(['tier', 'hero'])[y_axe].mean()
         selected_tiers = range(val[0], val[1] + 1)
 
         y = []
