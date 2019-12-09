@@ -117,6 +117,6 @@ def form_match_summary(name):
 if __name__ == "__main__":
     date = '20191206'
     scrap_ranked_matches(date)
-    matches_to_tiers(date, 2000)
+    matches_to_tiers(date, 700)
     form_ban_summary_csv('v4.csv')
     form_match_summary('v4.csv')

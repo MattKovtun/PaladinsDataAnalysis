@@ -30,11 +30,14 @@ app.layout = render_layout(df, TIERS, list(hero_dict.keys()))
 
 @cache.memoize()
 def global_store(tiers):
-    t = time.time()
-    data_selection = df[(df['tier'] >= tiers[0])
-                        & (df['tier'] <= tiers[1])]
-    print("done", time.time() - t)
-    return data_selection
+    # t = time.time()
+    ban_summary = df[(df['tier'] >= tiers[0])
+                     & (df['tier'] <= tiers[1])]
+
+    match_summary = ddf[(ddf['tier'] >= tiers[0])
+                        & (ddf['tier'] <= tiers[1])]
+    # print("done", time.time() - t)
+    return {'ban': ban_summary, 'match': match_summary}
 
 
 @app.callback(Output('signal', 'children'), [Input('tier-slider', 'value')])
@@ -43,7 +46,7 @@ def compute_value(value):
     return value
 
 
-hero_graph_callback(app, df, TIERS, DEFAULT_HERO)
+hero_graph_callback(app, TIERS, DEFAULT_HERO, global_store)
 main_graph_callback(app, hero_dict, global_store)
 hero_comparison_callback(app, TIERS, global_store)
 hero_drop_down_callback(app, DEFAULT_HERO)

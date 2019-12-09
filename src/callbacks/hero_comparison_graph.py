@@ -3,14 +3,15 @@ import plotly.graph_objs as go
 
 
 def hero_comparison_callback(app, tiers, global_store_fn):
+
     @app.callback(Output('hero-comparison-graph', 'figure'),
                   [Input('hero-dropdown', 'value'),
                    Input('axis-dropdown', 'value'),
                    Input('signal', 'children')])
     def update_hero_comparison_graph(dd_val, y_axe, val):
-        data_selection = global_store_fn(val)
-        data_selection = data_selection[data_selection['hero'].isin(dd_val)]
-        dd = data_selection.groupby(['tier', 'hero'])[y_axe].mean()
+        dd = global_store_fn(val)['match']
+        dd = dd[dd['hero'].isin(dd_val)]
+        dd = dd.groupby(['tier', 'hero'])[y_axe].mean()
         selected_tiers = range(val[0], val[1] + 1)
 
         y = []
