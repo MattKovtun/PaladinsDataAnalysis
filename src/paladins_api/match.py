@@ -34,3 +34,7 @@ class Match:
     @property
     def get_time(self):
         return self.data[0]['Entry_Datetime']
+    
+    @property
+    def get_map(self):
+        return self.data[0]['Map_Game']

@@ -4,7 +4,7 @@ from flask_caching import Cache
 from dash.dependencies import Input, Output
 
 from utils import prepare_data, create_hero_list
-from constants import TIERS, DEFAULT_HERO
+from constants import TIERS, DEFAULT_HERO, MAPS
 from layouts.layout import render_layout
 
 from callbacks.hero_graph import hero_graph_callback
@@ -21,22 +21,25 @@ CACHE_CONFIG = {'CACHE_TYPE': 'filesystem',
 cache = Cache()
 cache.init_app(app.server, config=CACHE_CONFIG)
 
-filename = 'v3.csv'
+filename = 'v4.csv'
 df = prepare_data("../data/processed/ban_summary/" + filename)
 ddf = prepare_data("../data/processed/match_summary/" + filename)
 
 hero_dict = create_hero_list(df)
-app.layout = render_layout(df, TIERS, list(hero_dict.keys()))
+app.layout = render_layout(df, TIERS, list(hero_dict.keys()), MAPS)
 
 
 @cache.memoize()
-def global_store(tiers):
+def global_store(tiers, maps):
     # t = time.time()
     ban_summary = df[(df['tier'] >= tiers[0])
                      & (df['tier'] <= tiers[1])]
+    ban_summary = ban_summary[ban_summary['map'].isin(maps)]
 
     match_summary = ddf[(ddf['tier'] >= tiers[0])
                         & (ddf['tier'] <= tiers[1])]
+    match_summary = match_summary[match_summary['map'].isin(maps)]
+
     # print("done", time.time() - t)
     return {'ban': ban_summary, 'match': match_summary}
 

@@ -58,5 +58,9 @@ TIERS = {1: 'Bronze V',
          26: 'Masters I',
          27: 'Grandmaster'}
 
-
 DEFAULT_HERO = 'Androxus'
+
+MAPS = ["Ranked Warder's Gate", 'Ranked Stone Keep', 'Ranked Brightmarsh',
+        'Ranked Frog Isle', 'Ranked Jaguar Falls', 'Ranked Ascension Peak',
+        'Ranked Serpent Beach', 'Ranked Fish Market', 'Ranked Bazaar',
+        'Ranked Splitstone Quarry']

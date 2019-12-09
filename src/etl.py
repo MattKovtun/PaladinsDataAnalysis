@@ -58,12 +58,14 @@ def form_ban_summary_csv(name):
 
         bans = match.get_bans
         time = match.get_time
+        map = match.get_map
         tier = max(match.get_league_tiers)
 
         if None in bans: return df
 
         df['time'] = [time] * len(bans)
         df['tier'] = [tier] * len(bans)
+        df['map'] = [map] * len(bans)
         df['ban'] = bans
         return df
 
@@ -106,17 +108,20 @@ def form_match_summary(name):
                              m.damage_taken,
                              m.damage_done,
                              m.tier,
-                             m.time])
+                             m.time,
+                             m.map])
 
     df = pd.DataFrame(data,
-                      columns=['matchid', 'hero', 'winner', 'healing', 'damage_taken', 'damage_done', 'tier', 'time'])
+                      columns=['matchid', 'hero', 'winner', 'healing',
+                               'damage_taken', 'damage_done', 'tier',
+                               'time', 'map'])
     processed_file = '../data/processed/match_summary/' + name
     df.to_csv(processed_file, index=False)
 
 
 if __name__ == "__main__":
-    date = '20191206'
-    scrap_ranked_matches(date)
-    matches_to_tiers(date, 700)
+    date = '20191204'
+    # scrap_ranked_matches(date)
+    # matches_to_tiers(date, 200)
     form_ban_summary_csv('v4.csv')
     form_match_summary('v4.csv')

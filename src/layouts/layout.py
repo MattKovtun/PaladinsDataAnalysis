@@ -2,7 +2,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 
 
-def create_range_slider(df, tiers):
+def render_range_slider(df, tiers):
     uniq = df['tier'].unique()
     mn = min(uniq)
     mx = max(uniq)
@@ -34,11 +34,23 @@ def render_axis_selection():
                         style={'width': '144px'})
 
 
-def render_layout(df, tiers, heroes):
+def render_map_selection(maps):
+    options = [{'label': m[7:], 'value': m} for m in maps]
+    return dcc.Dropdown(id='maps-dropdown',
+                        options=options,
+                        value=maps,
+                        multi=True,
+                        style={'width': '650px'})
+
+
+def render_layout(df, tiers, heroes, maps):
     return html.Div([
         html.Div([
+            html.Div([
+                render_map_selection(maps)
+            ]),
             dcc.Graph(id='main-graph')]),
-        html.Div([create_range_slider(df, tiers)], style={"width": "95%"}),
+        html.Div([render_range_slider(df, tiers)], style={"width": "95%"}),
         html.Div([
             dcc.Graph(id='hero-graph')], style={"width": "50%", "display": "inline-block"}),
         html.Div([

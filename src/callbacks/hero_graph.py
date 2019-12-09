@@ -9,14 +9,12 @@ def hero_graph_callback(app, tiers, default_hero, global_store_fn):
                    Input('signal', 'children')])
     def update_hero_graph(click, val):
         hero = default_hero
-        if click:
-            hero = click['points'][0]['label']
+        if click: hero = click['points'][0]['label']
 
-        dd = global_store_fn(val)['ban']
+        dd = global_store_fn(*val)['ban']
         data_selection = dd[dd['ban'] == hero].groupby('tier').count()['time']
 
         traces = []
-
         for k in data_selection.keys():
             traces.append(go.Bar(x=[hero], y=[data_selection[k]], name=tiers[k]))
 
