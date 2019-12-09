@@ -11,7 +11,7 @@ from callbacks.hero_graph import hero_graph_callback
 from callbacks.main_graph import main_graph_callback
 from callbacks.hero_comparison_graph import hero_comparison_callback
 from callbacks.hero_dropdown import hero_drop_down_callback
-from callbacks.data_selection import data_selection_callback
+from callbacks.signal import data_selection_callback
 
 app = dash.Dash(__name__)
 
@@ -55,3 +55,5 @@ if __name__ == '__main__':
 
 # refactor code
 # add date selection
+# add graphic about observations
+# rethink csv separation
