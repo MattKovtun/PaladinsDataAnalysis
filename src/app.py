@@ -11,6 +11,7 @@ from callbacks.hero_graph import hero_graph_callback
 from callbacks.main_graph import main_graph_callback
 from callbacks.hero_comparison_graph import hero_comparison_callback
 from callbacks.hero_dropdown import hero_drop_down_callback
+from callbacks.data_selection import data_selection_callback
 
 app = dash.Dash(__name__)
 
@@ -40,15 +41,10 @@ def global_store(tiers):
     return {'ban': ban_summary, 'match': match_summary}
 
 
-@app.callback(Output('signal', 'children'), [Input('tier-slider', 'value')])
-def compute_value(value):
-    global_store(value)
-    return value
-
-
 hero_graph_callback(app, TIERS, DEFAULT_HERO, global_store)
 main_graph_callback(app, hero_dict, global_store)
 hero_comparison_callback(app, TIERS, global_store)
+data_selection_callback(app, global_store)
 hero_drop_down_callback(app, DEFAULT_HERO)
 
 if __name__ == '__main__':
