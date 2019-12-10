@@ -4,7 +4,7 @@ from flask_caching import Cache
 from dash.dependencies import Input, Output
 
 from utils import prepare_data, create_hero_list
-from constants import TIERS, DEFAULT_HERO, MAPS, NUMBER_OF_BANS, color
+from constants import TIERS, DEFAULT_HERO, MAPS, NUMBER_OF_BANS, COLORS
 from layouts.layout import render_layout
 
 from callbacks.hero_graph import hero_graph_callback
@@ -45,7 +45,7 @@ def global_store(tiers, maps):
     return {'ban': ban_summary, 'match': match_summary}
 
 
-hero_graph_callback(app, TIERS, DEFAULT_HERO, global_store, color)
+hero_graph_callback(app, TIERS, DEFAULT_HERO, global_store, COLORS)
 main_graph_callback(app, hero_dict, global_store)
 hero_comparison_callback(app, TIERS, global_store)
 data_selection_callback(app, global_store)
