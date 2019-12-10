@@ -8,6 +8,9 @@ def observations_callback(app, df, number_of_bans, tiers):
     def update_hero_graph(_):
         data = (df.groupby('tier').count() / number_of_bans)['ban']
 
-        return {'data': [go.Scatter(x=[tiers[i] for i in data.keys()], y=data.values,
-                                    mode='lines+markers',)],
-                'layout': go.Layout(yaxis={'tickformat': ',d'}, title='Matches per tier')}
+        return {'data': [go.Scatter(x=[tiers[i] for i in data.keys()],
+                                    y=data.values,
+                                    mode='lines+markers', hoverinfo='y')],
+
+                'layout': go.Layout(yaxis={'tickformat': ',d'},
+                                    title='Matches per tier')}

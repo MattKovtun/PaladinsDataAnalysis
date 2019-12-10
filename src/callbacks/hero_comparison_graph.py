@@ -3,7 +3,6 @@ import plotly.graph_objs as go
 
 
 def hero_comparison_callback(app, tiers, global_store_fn):
-
     @app.callback(Output('hero-comparison-graph', 'figure'),
                   [Input('hero-dropdown', 'value'),
                    Input('axis-dropdown', 'value'),
@@ -20,11 +19,12 @@ def hero_comparison_callback(app, tiers, global_store_fn):
         if not dd.empty:
             x = [tiers[i] for i in selected_tiers]
             for h in dd_val:
-                tmp_y = []
-                for tier in selected_tiers:
-                    tmp_y.append(dd[(tier, h)])
-                data.append(go.Scatter(x=x, y=tmp_y, name=h, showlegend=True))
+                tmp_y = [dd[(tier, h)] for tier in selected_tiers]
+                data.append(
+                    go.Scatter(x=x, y=tmp_y, name=h,
+                               showlegend=True, hoverinfo='y',
+                               mode='lines'))
 
         return {
             'data': data,
-            'layout': go.Layout(yaxis={'tickformat': ',d'}, title='Avg stat in won game')}
+            'layout': go.Layout(title='Avg stat in won game')}
