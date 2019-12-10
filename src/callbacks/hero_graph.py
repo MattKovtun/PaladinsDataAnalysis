@@ -3,7 +3,6 @@ import plotly.graph_objs as go
 
 
 def hero_graph_callback(app, tiers, default_hero, global_store_fn):
-
     @app.callback(Output('hero-graph', 'figure'),
                   [Input('main-graph', 'clickData'),
                    Input('signal', 'children')])
@@ -16,7 +15,7 @@ def hero_graph_callback(app, tiers, default_hero, global_store_fn):
 
         traces = []
         for k in data_selection.keys():
-            traces.append(go.Bar(x=[hero], y=[data_selection[k]], name=tiers[k]))
+            traces.append(go.Bar(x=[tiers[k]], y=[data_selection[k]], hoverinfo='y'))
 
         return {'data': traces,
-                'layout': go.Layout(title='Bans per tier')}
+                'layout': go.Layout(title='Bans per tier', showlegend=False)}

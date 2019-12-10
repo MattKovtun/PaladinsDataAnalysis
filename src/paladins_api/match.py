@@ -1,3 +1,6 @@
+from paladins_api.constants import NUMBER_OF_BANS
+
+
 class Match:
     def __init__(self, data):
         self.data = data
@@ -6,7 +9,7 @@ class Match:
     @property
     def get_bans(self):
         player = self.data[0]  # they all are the same
-        number_of_bans = 4  # in current patch it's constant
+        number_of_bans = NUMBER_OF_BANS
         hero_id = 'BanId'
         hero_name = 'Ban_'
 
@@ -34,7 +37,7 @@ class Match:
     @property
     def get_time(self):
         return self.data[0]['Entry_Datetime']
-    
+
     @property
     def get_map(self):
         return self.data[0]['Map_Game']

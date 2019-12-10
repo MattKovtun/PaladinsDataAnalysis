@@ -60,8 +60,9 @@ def render_layout(df, tiers, heroes, maps):
             ]),
             dcc.Graph(id='hero-comparison-graph')], style={"width": "50%", "display": "inline-block"}),
         html.Div([
-            html.H4('Observations', style={'text-align': 'center'})
+            dcc.Graph(id='observation-graph')
         ]),
-        html.Div(id='signal', style={'display': 'none'})
+        html.Div(id='signal', style={'display': 'none'}),
+        html.Div(id='none', children=[], style={'display': 'none'})
 
     ], style={"max-width": "1440px", "margin": "auto"})

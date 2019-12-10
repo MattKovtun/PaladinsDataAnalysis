@@ -64,3 +64,6 @@ MAPS = ["Ranked Warder's Gate", 'Ranked Stone Keep', 'Ranked Brightmarsh',
         'Ranked Frog Isle', 'Ranked Jaguar Falls', 'Ranked Ascension Peak',
         'Ranked Serpent Beach', 'Ranked Fish Market', 'Ranked Bazaar',
         'Ranked Splitstone Quarry']
+
+
+NUMBER_OF_BANS = 4

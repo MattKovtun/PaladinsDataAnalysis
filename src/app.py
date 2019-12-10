@@ -4,7 +4,7 @@ from flask_caching import Cache
 from dash.dependencies import Input, Output
 
 from utils import prepare_data, create_hero_list
-from constants import TIERS, DEFAULT_HERO, MAPS
+from constants import TIERS, DEFAULT_HERO, MAPS, NUMBER_OF_BANS
 from layouts.layout import render_layout
 
 from callbacks.hero_graph import hero_graph_callback
@@ -12,6 +12,7 @@ from callbacks.main_graph import main_graph_callback
 from callbacks.hero_comparison_graph import hero_comparison_callback
 from callbacks.hero_dropdown import hero_drop_down_callback
 from callbacks.signal import data_selection_callback
+from callbacks.observations_graph import observations_callback
 
 app = dash.Dash(__name__)
 
@@ -49,6 +50,7 @@ main_graph_callback(app, hero_dict, global_store)
 hero_comparison_callback(app, TIERS, global_store)
 data_selection_callback(app, global_store)
 hero_drop_down_callback(app, DEFAULT_HERO)
+observations_callback(app, df, NUMBER_OF_BANS, TIERS)
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', debug=True)
