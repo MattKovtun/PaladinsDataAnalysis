@@ -67,3 +67,5 @@ MAPS = ["Ranked Warder's Gate", 'Ranked Stone Keep', 'Ranked Brightmarsh',
 
 
 NUMBER_OF_BANS = 4
+
+color = 'rgb(16, 158, 206)'
