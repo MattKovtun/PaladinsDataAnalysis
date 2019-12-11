@@ -2,10 +2,11 @@ from dash.dependencies import Output, Input
 import plotly.graph_objs as go
 
 
-def observations_callback(app, df, number_of_bans, tiers):
+def observations_callback(app, number_of_bans, tiers, global_store_fn):
     @app.callback(Output('observation-graph', 'figure'),
-                  [Input('none', 'children')])
-    def update_hero_graph(_):
+                  [Input('signal', 'children')])
+    def update_observation_graph(_):
+        df = global_store_fn(*_)['ban']
         data = (df.groupby('tier').count() / number_of_bans)['ban']
 
         return {'data': [go.Scatter(x=[tiers[i] for i in data.keys()],

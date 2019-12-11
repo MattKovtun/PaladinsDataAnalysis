@@ -1,9 +1,10 @@
 import dash_core_components as dcc
+from datetime import timedelta
 
 
 def date_picker(df):
     start_date = df['date'].min()
-    end_date = df['date'].max()
+    end_date = df['date'].max() + timedelta(days=1)
 
     return dcc.DatePickerRange(
         id='date-picker',

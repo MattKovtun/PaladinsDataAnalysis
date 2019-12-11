@@ -37,7 +37,7 @@ def global_store(tiers, maps, dates):
         data = data[(data['tier'] >= tiers[0])
                     & (data['tier'] <= tiers[1])
                     & (data['date'] >= start_end)
-                    & (data['date'] <= end_date)
+                    & (data['date'] < end_date)
                     ]
         return data[data['map'].isin(maps)]
 
@@ -56,7 +56,7 @@ main_graph_callback(app, hero_dict, global_store)
 hero_comparison_callback(app, TIERS, global_store)
 data_selection_callback(app, global_store)
 hero_drop_down_callback(app, DEFAULT_HERO)
-observations_callback(app, df, NUMBER_OF_BANS, TIERS)
+observations_callback(app, NUMBER_OF_BANS, TIERS, global_store)
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', debug=True)
