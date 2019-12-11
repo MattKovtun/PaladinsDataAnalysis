@@ -3,6 +3,7 @@ import time
 from flask_caching import Cache
 from dash.dependencies import Input, Output
 
+from datetime import datetime
 from utils import prepare_data, create_hero_list
 from constants import TIERS, DEFAULT_HERO, MAPS, NUMBER_OF_BANS, COLORS
 from layouts.layout import render_layout
@@ -31,14 +32,24 @@ app.layout = render_layout(df, TIERS, list(hero_dict.keys()), MAPS)
 
 
 @cache.memoize()
-def global_store(tiers, maps):
+def global_store(tiers, maps, dates):
+    start_end = datetime.strptime(dates[0], '%Y-%m-%d').date()
+    end_date = datetime.strptime(dates[1], '%Y-%m-%d').date()
+
     # t = time.time()
     ban_summary = df[(df['tier'] >= tiers[0])
-                     & (df['tier'] <= tiers[1])]
+                     & (df['tier'] <= tiers[1])
+                     # & (df['date'] >= start_end)
+                     # & (df['date'] <= end_date)
+                     ]
     ban_summary = ban_summary[ban_summary['map'].isin(maps)]
 
     match_summary = ddf[(ddf['tier'] >= tiers[0])
-                        & (ddf['tier'] <= tiers[1])]
+                        & (ddf['tier'] <= tiers[1])
+                        # & (df['date'] >= start_end)
+                        # & (df['date'] <= end_date)
+                        ]
+
     match_summary = match_summary[match_summary['map'].isin(maps)]
 
     # print("done", time.time() - t)

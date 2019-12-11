@@ -13,7 +13,7 @@ def render_layout(df, tiers, heroes, maps):
         html.Div([
             html.Div([
                 map_selection(maps),
-                date_picker()
+                date_picker(df)
             ]),
             dcc.Graph(id='main-graph')]),
         html.Div([range_slider(df, tiers)], style={"width": "95%"}),
