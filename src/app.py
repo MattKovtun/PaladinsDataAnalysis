@@ -33,25 +33,20 @@ app.layout = render_layout(df, TIERS, list(hero_dict.keys()), MAPS)
 
 @cache.memoize()
 def global_store(tiers, maps, dates):
+    def select_data(data):
+        data = data[(data['tier'] >= tiers[0])
+                    & (data['tier'] <= tiers[1])
+                    & (data['date'] >= start_end)
+                    & (data['date'] <= end_date)
+                    ]
+        return data[data['map'].isin(maps)]
+
     start_end = datetime.strptime(dates[0], '%Y-%m-%d').date()
     end_date = datetime.strptime(dates[1], '%Y-%m-%d').date()
 
     # t = time.time()
-    ban_summary = df[(df['tier'] >= tiers[0])
-                     & (df['tier'] <= tiers[1])
-                     # & (df['date'] >= start_end)
-                     # & (df['date'] <= end_date)
-                     ]
-    ban_summary = ban_summary[ban_summary['map'].isin(maps)]
-
-    match_summary = ddf[(ddf['tier'] >= tiers[0])
-                        & (ddf['tier'] <= tiers[1])
-                        # & (df['date'] >= start_end)
-                        # & (df['date'] <= end_date)
-                        ]
-
-    match_summary = match_summary[match_summary['map'].isin(maps)]
-
+    ban_summary = select_data(df)
+    match_summary = select_data(ddf)
     # print("done", time.time() - t)
     return {'ban': ban_summary, 'match': match_summary}
 
