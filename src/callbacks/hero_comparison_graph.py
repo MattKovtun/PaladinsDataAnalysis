@@ -13,7 +13,7 @@ def hero_comparison_callback(app, tiers, global_store_fn):
         data = data[data['hero'].isin(dd_heroes)]
 
         min_tier, max_tier = selected_tiers
-        x = [tiers[i] for i in tiers][min_tier:max_tier]
+        x = [tiers[i] for i in tiers][min_tier - 1:max_tier]
 
         if y_axe != 'win_rate':
             data = data.groupby(['tier', 'hero'])[y_axe].mean()
@@ -28,7 +28,7 @@ def hero_comparison_callback(app, tiers, global_store_fn):
 
         return {
             'data': [go.Scatter(x=x,
-                                y=scatter_data[hero][min_tier:max_tier], name=hero,
+                                y=scatter_data[hero][min_tier - 1:max_tier], name=hero,
                                 showlegend=True, hoverinfo='y',
                                 mode='lines+markers') for hero in scatter_data],
             'layout': go.Layout(title='Avg stat in won game',
