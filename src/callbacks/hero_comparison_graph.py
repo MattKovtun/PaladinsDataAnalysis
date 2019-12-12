@@ -11,16 +11,21 @@ def hero_comparison_callback(app, tiers, global_store_fn):
     def update_hero_comparison_graph(dd_heroes, y_axe, selected_tiers, _):
         data = global_store_fn(*_)['match']
         data = data[data['hero'].isin(dd_heroes)]
-        data = data.groupby(['tier', 'hero'])[y_axe].mean()
 
         min_tier, max_tier = selected_tiers
-        scatter_data = {hero: [None] * (len(tiers)) for hero in dd_heroes}
-
-        for (tier, hero) in data.keys():
-            if hero in scatter_data:
-                scatter_data[hero][tier - 1] = data[(tier, hero)]  # ranks are 1-based
-
         x = [tiers[i] for i in tiers][min_tier:max_tier]
+
+        if y_axe != 'win_rate':
+            data = data.groupby(['tier', 'hero'])[y_axe].mean()
+            scatter_data = {hero: [None] * (len(tiers)) for hero in dd_heroes}
+
+            for (tier, hero) in data.keys():
+                if hero in scatter_data:
+                    scatter_data[hero][tier - 1] = data[(tier, hero)]
+
+        else:
+            scatter_data = calc_win_rate(data, dd_heroes, selected_tiers)
+
         return {
             'data': [go.Scatter(x=x,
                                 y=scatter_data[hero][min_tier:max_tier], name=hero,
@@ -28,3 +33,17 @@ def hero_comparison_callback(app, tiers, global_store_fn):
                                 mode='lines+markers') for hero in scatter_data],
             'layout': go.Layout(title='Avg stat in won game',
                                 )}
+
+    def calc_win_rate(df, dd_heroes, selected_tiers):
+        # don't recalc for all
+        scatter_data = {hero: [None] * (len(tiers)) for hero in dd_heroes}
+        for hero in dd_heroes:
+            for tier in range(selected_tiers[0], selected_tiers[1] + 1):
+                total = df[(df['hero'] == hero)
+                           & (df['tier'] == tier)]
+                wins = total[total['winner']].shape[0]
+                total = total.shape[0]
+
+                if total:
+                    scatter_data[hero][tier - 1] = wins / total
+        return scatter_data
