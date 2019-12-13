@@ -59,9 +59,7 @@ hero_drop_down_callback(app, DEFAULT_HERO)
 observations_callback(app, NUMBER_OF_BANS, TIERS, global_store)
 
 if __name__ == '__main__':
-    app.run_server(host='0.0.0.0', debug=False)
+    app.run_server(host='0.0.0.0', debug=True)
 
 # refactor code
-# add date selection
-# add graphic about observations
-# rethink csv separation
+# add click main graph

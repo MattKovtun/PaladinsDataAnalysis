@@ -38,7 +38,6 @@ def matches_to_tiers(date, n_matches=20):
     some_matches = random.choices(match_ids, k=n_matches)
 
     api = MatchApi(DEV_ID, AUTH_KEY)
-    print(some_matches)
     for match_id in tqdm.tqdm(some_matches):
         match_details = api.get_match_details(match_id)
         match = Match(match_details)
@@ -149,18 +148,19 @@ def total_matches_per_day(start_date, end_date):
 if __name__ == "__main__":
     import time
 
-    date = '20191130'
-    # end_date = '20191202'
+    date = '20191205'
+    # end_date = '20191209'
     # total_matches_per_day(date, end_date)
-    # scrap_ranked_matches(date)
+    scrap_ranked_matches(date)
         #
-        #  datetime.date(2019, 11, 30): 563, datetime.date(2019, 12, 1): 2284}
+    # datetime.date(2019, 12, 5): 0, datetime.date(2019, 12, 6): 1905, datetime.date(
+    #     2019, 12, 7): 1854, datetime.date(2019, 12, 8): 1861}
 
     # t = time.time()
-    # matches_to_tiers(date, 600)
+    # matches_to_tiers(date, 300)
     t1 = time.time()
     # print(t1 - t)
-    #
+
     form_ban_summary_csv('v5.csv')
     t2 = time.time()
     print(t2 - t1)
@@ -168,4 +168,5 @@ if __name__ == "__main__":
     form_match_summary('v5.csv')
     t3 = time.time()
     print(t3 - t2)
-#
+# #
+
