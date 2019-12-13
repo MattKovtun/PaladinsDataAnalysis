@@ -25,12 +25,18 @@ def hero_comparison_callback(app, tiers, global_store_fn):
 
         else:
             scatter_data = calc_win_rate(data, dd_heroes, selected_tiers)
-
+        colors = ['#05419b', '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6',
+                  '#bcf60c',
+                  '#fabebe', '#008080', '#e6beff', '#9a6324', '#3588a7', '#fffac8', '#800000', '#aaffc3', '#808000',
+                  '#ffd8b1',
+                  '#000075', '#808080', '#ffffff', '#000000']
         return {
             'data': [go.Scatter(x=x,
                                 y=scatter_data[hero][min_tier - 1:max_tier], name=hero,
                                 showlegend=True, hoverinfo='y',
-                                mode='lines+markers') for hero in scatter_data],
+                                mode='lines+markers',
+                                marker_color=colors[i % len(colors)]
+                                ) for i, hero in enumerate(scatter_data)],
             'layout': go.Layout(title='Avg stat in won game',
                                 )}
 

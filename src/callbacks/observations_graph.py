@@ -11,7 +11,7 @@ def observations_callback(app, number_of_bans, tiers, global_store_fn):
 
         return {'data': [go.Scatter(x=[tiers[i] for i in data.keys()],
                                     y=data.values,
-                                    mode='lines+markers', hoverinfo='y')],
+                                    mode='lines+markers', hoverinfo='y', marker_color='#05419b')],
 
                 'layout': go.Layout(yaxis={'tickformat': ',d'},
                                     title='Overall matches per tier')}
