@@ -12,12 +12,13 @@ from paladins_api.match import Match
 from paladins_api.match_player import MatchPlayer
 
 tiers_path = '../data/tiers/'
+ranked_siege = '../data/daily/ranked_siege/'
 
 
 def scrap_ranked_matches(date):
     api = MatchApi(DEV_ID, AUTH_KEY)
     data = api.get_match_ids_by_queue(RANKED_SIEGE, date, hour='-1', verbose=False)
-    pp = '../data/daily/ranked_siege/' + date
+    pp = ranked_siege + date
 
     with open(pp, 'w') as f:
         f.write(str(len(data)) + '\n')
@@ -26,7 +27,7 @@ def scrap_ranked_matches(date):
 
 
 def matches_to_tiers(date, n_matches=20):
-    matches_id_path = '../data/daily/ranked_siege/' + date
+    matches_id_path = ranked_siege + date
 
     match_ids = []
     with open(matches_id_path) as input_file:
@@ -148,7 +149,7 @@ def total_matches_per_day(start_date, end_date):
 if __name__ == "__main__":
     import time
 
-    date = '20191218'
+    date = '20191219'
     # end_date = '20191216'
     # total_matches_per_day(date, end_date)
     scrap_ranked_matches(date)

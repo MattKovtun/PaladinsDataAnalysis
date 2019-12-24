@@ -52,11 +52,11 @@ def global_store(tiers, maps, dates):
 
 
 hero_graph_callback(app, TIERS, DEFAULT_HERO, global_store, COLORS)
-main_graph_callback(app, hero_dict, global_store, DEFAULT_HERO)
+main_graph_callback(app, hero_dict, global_store, DEFAULT_HERO, DEFAULT_COLORMAP)
 hero_comparison_callback(app, TIERS, global_store, DEFAULT_COLORMAP)
 data_selection_callback(app, global_store)
 hero_drop_down_callback(app, DEFAULT_HERO)
-observations_callback(app, NUMBER_OF_BANS, TIERS, global_store)
+observations_callback(app, NUMBER_OF_BANS, TIERS, global_store, DEFAULT_COLORMAP)
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', debug=True)

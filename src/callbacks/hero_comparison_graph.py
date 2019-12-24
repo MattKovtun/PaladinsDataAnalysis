@@ -3,32 +3,6 @@ import plotly.graph_objs as go
 
 
 def hero_comparison_callback(app, tiers, global_store_fn, default_colormap):
-    @app.callback(Output('hero-comparison-graph', 'figure'),
-                  [Input('hero-dropdown', 'value'),
-                   Input('axis-dropdown', 'value'),
-                   Input('tier-slider', 'value'),
-                   Input('signal', 'children')])
-    def update_hero_comparison_graph(dd_heroes, y_axe, selected_tiers, _):
-        data = global_store_fn(*_)['match']
-        data = data[data['hero'].isin(dd_heroes)]
-
-        min_tier, max_tier = selected_tiers
-        x = [tiers[i] for i in tiers][min_tier - 1:max_tier]
-
-        if y_axe == 'win_rate':
-            scatter_data, text_data = calc_win_rate(data, dd_heroes, selected_tiers)
-        else:
-            scatter_data, text_data = select_field(data, y_axe, dd_heroes)
-        return {
-            'data': [go.Scatter(x=x,
-                                y=scatter_data[hero][min_tier - 1:max_tier], name=hero,
-                                showlegend=True, hoverinfo='y+text',
-                                mode='lines+markers',
-                                marker_color=default_colormap[i % len(default_colormap)],
-                                text=text_data[hero][min_tier - 1: max_tier]
-                                ) for i, hero in enumerate(scatter_data)],
-            'layout': go.Layout(title='Avg stat in won game')}
-
     def select_field(data, y_axe, dd_heroes):
         data = data.groupby(['tier', 'hero'])[y_axe]
         mean = data.mean()
@@ -58,3 +32,29 @@ def hero_comparison_callback(app, tiers, global_store_fn, default_colormap):
                     scatter_data[hero][tier - 1] = wins / total
                     text_data[hero][tier - 1] = str(total) + ' games'
         return scatter_data, text_data
+
+    @app.callback(Output('hero-comparison-graph', 'figure'),
+                  [Input('hero-dropdown', 'value'),
+                   Input('axis-dropdown', 'value'),
+                   Input('tier-slider', 'value'),
+                   Input('signal', 'children')])
+    def update_hero_comparison_graph(dd_heroes, y_axe, selected_tiers, _):
+        data = global_store_fn(*_)['match']
+        data = data[data['hero'].isin(dd_heroes)]
+
+        min_tier, max_tier = selected_tiers
+        x = [tiers[i] for i in tiers][min_tier - 1:max_tier]
+
+        if y_axe == 'win_rate':
+            scatter_data, text_data = calc_win_rate(data, dd_heroes, selected_tiers)
+        else:
+            scatter_data, text_data = select_field(data, y_axe, dd_heroes)
+        return {
+            'data': [go.Scatter(x=x,
+                                y=scatter_data[hero][min_tier - 1:max_tier], name=hero,
+                                showlegend=True, hoverinfo='y+text',
+                                mode='lines+markers',
+                                marker_color=default_colormap[i % len(default_colormap)],
+                                text=text_data[hero][min_tier - 1: max_tier]
+                                ) for i, hero in enumerate(scatter_data)],
+            'layout': go.Layout(title='Avg stat in won game')}
