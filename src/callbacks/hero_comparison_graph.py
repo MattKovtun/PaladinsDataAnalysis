@@ -2,7 +2,7 @@ from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 
 
-def hero_comparison_callback(app, tiers, global_store_fn):
+def hero_comparison_callback(app, tiers, global_store_fn, default_colormap):
     @app.callback(Output('hero-comparison-graph', 'figure'),
                   [Input('hero-dropdown', 'value'),
                    Input('axis-dropdown', 'value'),
@@ -15,30 +15,28 @@ def hero_comparison_callback(app, tiers, global_store_fn):
         min_tier, max_tier = selected_tiers
         x = [tiers[i] for i in tiers][min_tier - 1:max_tier]
 
-        if y_axe != 'win_rate':
-            data = data.groupby(['tier', 'hero'])[y_axe].mean()
-            scatter_data = {hero: [None] * (len(tiers)) for hero in dd_heroes}
-
-            for (tier, hero) in data.keys():
-                if hero in scatter_data:
-                    scatter_data[hero][tier - 1] = data[(tier, hero)]
-
-        else:
+        if y_axe == 'win_rate':
             scatter_data = calc_win_rate(data, dd_heroes, selected_tiers)
-        colors = ['#05419b', '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6',
-                  '#bcf60c',
-                  '#fabebe', '#008080', '#e6beff', '#9a6324', '#3588a7', '#fffac8', '#800000', '#aaffc3', '#808000',
-                  '#ffd8b1',
-                  '#000075', '#808080', '#ffffff', '#000000']
+        else:
+            scatter_data = select_field(data, y_axe, dd_heroes)
         return {
             'data': [go.Scatter(x=x,
                                 y=scatter_data[hero][min_tier - 1:max_tier], name=hero,
                                 showlegend=True, hoverinfo='y',
                                 mode='lines+markers',
-                                marker_color=colors[i % len(colors)]
+                                marker_color=default_colormap[i % len(default_colormap)]
                                 ) for i, hero in enumerate(scatter_data)],
             'layout': go.Layout(title='Avg stat in won game',
                                 )}
+
+    def select_field(data, y_axe, dd_heroes):
+        data = data.groupby(['tier', 'hero'])[y_axe].mean()
+        scatter_data = {hero: [None] * (len(tiers)) for hero in dd_heroes}
+
+        for (tier, hero) in data.keys():
+            if hero in scatter_data:
+                scatter_data[hero][tier - 1] = data[(tier, hero)]
+        return scatter_data
 
     def calc_win_rate(df, dd_heroes, selected_tiers):
         # don't recalc for all

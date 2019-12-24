@@ -1,3 +1,9 @@
+# LIMITS
+# concurrent_sessions:  50
+# sessions_per_day: 500
+# session_time_limit:  15 minutes
+# request_day_limit:  7500
+
 PALADINS_URL = 'http://api.paladins.com/paladinsapi.svc'
 JSON = 'Json'
 
@@ -11,25 +17,14 @@ LANGUAGES = {
     'RUSSIAN': '11',
     'POLISH': '12',
     'TURKISH': '13'}
-
 ENGLISH = LANGUAGES['ENGLISH']
 
 SIEGE = '424'
 TDM = '469'
-
 RANKED_SIEGE = '486'
 
-# LIMITS
-# concurrent_sessions:  50
-# sessions_per_day: 500
-# session_time_limit:  15 minutes
-# request_day_limit:  7500
-
-
 TIER_N = 28
-
 # tier - League tier, unranked = tier 0
-
 TIERS = {1: 'Bronze V',
          2: 'Bronze IV',
          3: 'Bronze III',
@@ -59,7 +54,6 @@ TIERS = {1: 'Bronze V',
          27: 'Grandmaster'}
 
 DEFAULT_HERO = 'Atlas'
-
 MAPS = ["Ranked Warder's Gate", 'Ranked Stone Keep', 'Ranked Brightmarsh',
         'Ranked Frog Isle', 'Ranked Jaguar Falls', 'Ranked Ascension Peak',
         'Ranked Serpent Beach', 'Ranked Fish Market', 'Ranked Bazaar',
@@ -96,3 +90,11 @@ COLORS = {
     26: 'rgb(82, 195, 181)',
     27: 'rgb(118, 61, 217)'
 }
+
+DEFAULT_COLORMAP = ['#05419b', '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0',
+                    '#f032e6',
+                    '#bcf60c',
+                    '#fabebe', '#008080', '#e6beff', '#9a6324', '#3588a7', '#fffac8', '#800000', '#aaffc3',
+                    '#808000',
+                    '#ffd8b1',
+                    '#000075', '#808080', '#ffffff', '#000000']

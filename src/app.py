@@ -5,13 +5,13 @@ from dash.dependencies import Input, Output
 
 from datetime import datetime
 from utils import prepare_data, create_hero_list
-from constants import TIERS, DEFAULT_HERO, MAPS, NUMBER_OF_BANS, COLORS
+from constants import TIERS, DEFAULT_HERO, MAPS, NUMBER_OF_BANS, COLORS, DEFAULT_COLORMAP
 from layouts.layout import render_layout
 
-from callbacks.hero_graph import hero_graph_callback
-from callbacks.main_graph import main_graph_callback
+from callbacks.bans_per_tier_graph import hero_graph_callback
+from callbacks.ban_graph import main_graph_callback
 from callbacks.hero_comparison_graph import hero_comparison_callback
-from callbacks.hero_dropdown import hero_drop_down_callback
+from callbacks.hero_comparison_dropdown import hero_drop_down_callback
 from callbacks.signal import data_selection_callback
 from callbacks.observations_graph import observations_callback
 
@@ -53,7 +53,7 @@ def global_store(tiers, maps, dates):
 
 hero_graph_callback(app, TIERS, DEFAULT_HERO, global_store, COLORS)
 main_graph_callback(app, hero_dict, global_store, DEFAULT_HERO)
-hero_comparison_callback(app, TIERS, global_store)
+hero_comparison_callback(app, TIERS, global_store, DEFAULT_COLORMAP)
 data_selection_callback(app, global_store)
 hero_drop_down_callback(app, DEFAULT_HERO)
 observations_callback(app, NUMBER_OF_BANS, TIERS, global_store)
@@ -61,5 +61,5 @@ observations_callback(app, NUMBER_OF_BANS, TIERS, global_store)
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', debug=False)
 
-# refactor code
-# add click main graph
+# refactor code, add config
+# setup cron job, consider rewriting to factory

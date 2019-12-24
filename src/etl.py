@@ -148,25 +148,24 @@ def total_matches_per_day(start_date, end_date):
 if __name__ == "__main__":
     import time
 
-    date = '20191205'
-    # end_date = '20191209'
+    date = '20191217'
+    # end_date = '20191216'
     # total_matches_per_day(date, end_date)
     scrap_ranked_matches(date)
-        #
+    #
     # datetime.date(2019, 12, 5): 0, datetime.date(2019, 12, 6): 1905, datetime.date(
     #     2019, 12, 7): 1854, datetime.date(2019, 12, 8): 1861}
 
     # t = time.time()
-    # matches_to_tiers(date, 300)
-    t1 = time.time()
+    matches_to_tiers(date, 1000)
+    # t1 = time.time()
     # print(t1 - t)
 
-    form_ban_summary_csv('v5.csv')
-    t2 = time.time()
-    print(t2 - t1)
+    # form_ban_summary_csv('v5.csv')
+    # t2 = time.time()
+    # print(t2 - t1)
 
-    form_match_summary('v5.csv')
-    t3 = time.time()
-    print(t3 - t2)
+    # form_match_summary('v5.csv')
+    # t3 = time.time()
+    # print(t3 - t2)
 # #
-
