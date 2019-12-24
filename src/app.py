@@ -16,6 +16,7 @@ from callbacks.signal import data_selection_callback
 from callbacks.observations_graph import observations_callback
 
 app = dash.Dash(__name__)
+# app.config['suppress_callback_exceptions'] = True
 
 CACHE_CONFIG = {'CACHE_TYPE': 'filesystem',
                 'CACHE_DIR': './cache'}
