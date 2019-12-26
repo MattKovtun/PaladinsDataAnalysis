@@ -149,7 +149,7 @@ def total_matches_per_day(start_date, end_date):
 if __name__ == "__main__":
     import time
 
-    date = '20191219'
+    date = '20191224'
     # end_date = '20191216'
     # total_matches_per_day(date, end_date)
     scrap_ranked_matches(date)
@@ -163,9 +163,9 @@ if __name__ == "__main__":
     # print(t1 - t)
 
     # form_ban_summary_csv('v5.csv')
-    # t2 = time.time()
-    # print(t2 - t1)
-
+    # # t2 = time.time()
+    # # print(t2 - t1)
+    #
     # form_match_summary('v5.csv')
     # t3 = time.time()
     # print(t3 - t2)
