@@ -16,7 +16,7 @@ from callbacks.signal import data_selection_callback
 from callbacks.observations_graph import observations_callback
 
 app = dash.Dash(__name__)
-app.config['suppress_callback_exceptions'] = True
+# app.config['suppress_callback_exceptions'] = True
 
 CACHE_CONFIG = {'CACHE_TYPE': 'filesystem',
                 'CACHE_DIR': './cache'}
@@ -60,7 +60,7 @@ hero_drop_down_callback(app, DEFAULT_HERO)
 observations_callback(app, NUMBER_OF_BANS, TIERS, global_store, DEFAULT_COLORMAP)
 
 if __name__ == '__main__':
-    app.run_server(host='0.0.0.0', debug=True)
+    app.run_server(host='0.0.0.0', debug=False)
 
 # refactor code, add config
 # setup cron job, consider rewriting to factory
