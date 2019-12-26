@@ -26,4 +26,4 @@ def main_graph_callback(app, data, global_store_fn, default_hero, default_colorm
         graph_data = [go.Bar({'x': x, 'y': y, 'marker_color': marker_colors})]
         return {
             'data': graph_data,
-            'layout': go.Layout(yaxis={'tickformat': ',d'}, title='Paladins ban analysis')}
+            'layout': go.Layout(yaxis={'tickformat': ',d'}, title='Interactive Hero ban analysis')}
