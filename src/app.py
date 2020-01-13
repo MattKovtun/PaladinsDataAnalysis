@@ -1,35 +1,54 @@
 import dash
-import time
+import dash_core_components as dcc
+import dash_html_components as html
 from flask_caching import Cache
 from dash.dependencies import Input, Output
 
 from datetime import datetime
 from utils import prepare_data, create_hero_list
-from constants import TIERS, DEFAULT_HERO, MAPS, NUMBER_OF_BANS, COLORS, DEFAULT_COLORMAP
-from layouts.layout import render_layout
+from constants import TIERS, DEFAULT_HERO, MAPS, NUMBER_OF_BANS
+from constants import COLORS, DEFAULT_COLORMAP, CACHE_CONFIG, BAN_SUMMARY, MATCH_SUMMARY
+from layouts.main_app.layout import render_layout
 
-from callbacks.bans_per_tier_graph import hero_graph_callback
-from callbacks.ban_graph import main_graph_callback
-from callbacks.hero_comparison_graph import hero_comparison_callback
-from callbacks.hero_comparison_dropdown import hero_drop_down_callback
-from callbacks.signal import data_selection_callback
-from callbacks.observations_graph import observations_callback
+from callbacks.main_app.bans_per_tier_graph import hero_graph_callback
+from callbacks.main_app.ban_graph import main_graph_callback
+from callbacks.main_app.hero_comparison_graph import hero_comparison_callback
+from callbacks.main_app.hero_comparison_dropdown import hero_drop_down_callback
+from callbacks.main_app.signal import data_selection_callback
+from callbacks.main_app.observations_graph import observations_callback
+
+
+from layouts.secondary_app.layout import render_layout as rl2
+
+from callbacks.secondary_app.over_time import secondary_page_callback
+
 
 app = dash.Dash(__name__)
-# app.config['suppress_callback_exceptions'] = True
-
-CACHE_CONFIG = {'CACHE_TYPE': 'filesystem',
-                'CACHE_DIR': './cache'}
+app.config['suppress_callback_exceptions'] = True
 
 cache = Cache()
 cache.init_app(app.server, config=CACHE_CONFIG)
 
-filename = 'v5.csv'
-df = prepare_data("../data/processed/ban_summary/" + filename)
-ddf = prepare_data("../data/processed/match_summary/" + filename)
+df = prepare_data(BAN_SUMMARY)
+ddf = prepare_data(MATCH_SUMMARY)
 
 hero_dict = create_hero_list(df)
-app.layout = render_layout(df, TIERS, list(hero_dict.keys()), MAPS)
+
+app.layout = html.Div([
+    dcc.Location(id='url', refresh=False),
+    html.Div(id='page-content')
+])
+
+
+@app.callback(Output('page-content', 'children'),
+              [Input('url', 'pathname')])
+def display_page(pathname):
+    if pathname == '/':
+        return render_layout(df, TIERS, list(hero_dict.keys()), MAPS)
+    elif pathname == '/overtime':
+        return rl2()
+    else:
+        return '404'
 
 
 @cache.memoize()
@@ -59,8 +78,10 @@ data_selection_callback(app, global_store)
 hero_drop_down_callback(app, DEFAULT_HERO)
 observations_callback(app, NUMBER_OF_BANS, TIERS, global_store, DEFAULT_COLORMAP)
 
+secondary_page_callback(app)
+
 if __name__ == '__main__':
-    app.run_server(host='0.0.0.0', debug=False)
+    app.run_server(host='0.0.0.0', debug=True)
 
 # refactor code, add config
 # setup cron job, consider rewriting to factory

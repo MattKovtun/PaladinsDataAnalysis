@@ -1,11 +1,11 @@
 import dash_core_components as dcc
 import dash_html_components as html
 
-from layouts.date_picker import date_picker
-from layouts.heroes_dropdown import heroes_dropdown
-from layouts.map_selection import map_selection
-from layouts.range_slider import range_slider
-from layouts.stat_selection import stat_selection
+from layouts.main_app.date_picker import date_picker
+from layouts.main_app.heroes_dropdown import heroes_dropdown
+from layouts.main_app.map_selection import map_selection
+from layouts.main_app.range_slider import range_slider
+from layouts.main_app.stat_selection import stat_selection
 
 
 def render_layout(df, tiers, heroes, maps):

@@ -4,6 +4,14 @@
 # session_time_limit:  15 minutes
 # request_day_limit:  7500
 
+
+CACHE_CONFIG = {'CACHE_TYPE': 'filesystem',
+                'CACHE_DIR': './cache'}
+
+filename = 'v5.csv'
+BAN_SUMMARY = "../data/processed/ban_summary/" + filename
+MATCH_SUMMARY = "../data/processed/match_summary/" + filename
+
 PALADINS_URL = 'http://api.paladins.com/paladinsapi.svc'
 JSON = 'Json'
 

@@ -149,7 +149,7 @@ def total_matches_per_day(start_date, end_date):
 if __name__ == "__main__":
     import time
 
-    date = '20191224'
+    date = '20200107'
     # end_date = '20191216'
     # total_matches_per_day(date, end_date)
     scrap_ranked_matches(date)
@@ -158,7 +158,7 @@ if __name__ == "__main__":
     #     2019, 12, 7): 1854, datetime.date(2019, 12, 8): 1861}
 
     # t = time.time()
-    matches_to_tiers(date, 1000)
+    matches_to_tiers(date, 500)
     # t1 = time.time()
     # print(t1 - t)
 
