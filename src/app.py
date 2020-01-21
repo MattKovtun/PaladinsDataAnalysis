@@ -17,11 +17,9 @@ from callbacks.main_app.hero_comparison_dropdown import hero_drop_down_callback
 from callbacks.main_app.signal import data_selection_callback
 from callbacks.main_app.observations_graph import observations_callback
 
-
 from layouts.secondary_app.layout import render_layout as rl2
 
-from callbacks.secondary_app.over_time import secondary_page_callback
-
+from callbacks.secondary_app.over_time import secondary_app_callback
 
 app = dash.Dash(__name__)
 app.config['suppress_callback_exceptions'] = True
@@ -46,7 +44,7 @@ def display_page(pathname):
     if pathname == '/':
         return render_layout(df, TIERS, list(hero_dict.keys()), MAPS)
     elif pathname == '/overtime':
-        return rl2()
+        return rl2(list(hero_dict.keys()))
     else:
         return '404'
 
@@ -78,7 +76,7 @@ data_selection_callback(app, global_store)
 hero_drop_down_callback(app, DEFAULT_HERO)
 observations_callback(app, NUMBER_OF_BANS, TIERS, global_store, DEFAULT_COLORMAP)
 
-secondary_page_callback(app)
+secondary_app_callback(app, TIERS, ddf, DEFAULT_COLORMAP)
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', debug=True)

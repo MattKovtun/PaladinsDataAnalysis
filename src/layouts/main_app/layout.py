@@ -5,7 +5,7 @@ from layouts.main_app.date_picker import date_picker
 from layouts.main_app.heroes_dropdown import heroes_dropdown
 from layouts.main_app.map_selection import map_selection
 from layouts.main_app.range_slider import range_slider
-from layouts.main_app.stat_selection import stat_selection
+from layouts.main_app.axis_dropdown import axis_dropdown
 
 
 def render_layout(df, tiers, heroes, maps):
@@ -23,7 +23,7 @@ def render_layout(df, tiers, heroes, maps):
         html.Div([
             html.Div([
                 heroes_dropdown(heroes),
-                stat_selection(),
+                axis_dropdown(),
             ]),
             dcc.Graph(id='hero-comparison-graph')], style={"width": "50%", "display": "inline-block"}),
         html.Div([

@@ -8,7 +8,7 @@
 CACHE_CONFIG = {'CACHE_TYPE': 'filesystem',
                 'CACHE_DIR': './cache'}
 
-filename = 'v5.csv'
+filename = 'v6.csv'
 BAN_SUMMARY = "../data/processed/ban_summary/" + filename
 MATCH_SUMMARY = "../data/processed/match_summary/" + filename
 
