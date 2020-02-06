@@ -66,6 +66,7 @@ def form_ban_summary_csv(name):
 
         match = Match(match_info)
 
+        match_id = match.get_match_id
         bans = match.get_bans
         time = match.get_time
         map = match.get_map
@@ -76,7 +77,7 @@ def form_ban_summary_csv(name):
         if None in bans: return match_data
 
         for ban in bans:
-            match_data.append([time, tier, map, ban])
+            match_data.append([time, tier, map, ban, match_id])
 
         return match_data
 
@@ -97,7 +98,7 @@ def form_ban_summary_csv(name):
         tier = str(i)
         data.extend(read_tier(tiers_path, tier))
 
-    df = pd.DataFrame(data, columns=['time', 'tier', 'map', 'ban'])
+    df = pd.DataFrame(data, columns=['time', 'tier', 'map', 'ban', 'matchid'])
     df.to_csv(processed_file, index=False)
 
 

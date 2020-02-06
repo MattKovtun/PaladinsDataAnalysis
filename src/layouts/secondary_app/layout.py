@@ -10,7 +10,12 @@ def render_layout(heroes):
         html.Div([
             heroes_dropdown(heroes),
             axis_dropdown(),
+            dcc.Checklist(id='secondary-checklist', options=[{'label': 'Picks', 'value': 'picks', 'disabled': True},
+                                                             {'label': 'Bans', 'value': 'bans'}],
+                          value=['picks', 'bans']),
+
         ]),
         dcc.Graph(id='secondary-hero-comparison-graph'),
-        html.Div(dcc.Graph(id='secondary-pickrate')),
+        html.Div([
+            dcc.Graph(id='secondary-pickrate')]),
     ], id='secondary', style={"max-width": "1440px", "margin": "auto"})

@@ -31,6 +31,7 @@ cache.init_app(app.server, config=CACHE_CONFIG)
 df = prepare_data(BAN_SUMMARY)
 ddf = prepare_data(MATCH_SUMMARY)
 pickrate = calc_pick_rate(ddf)
+banrate = calc_pick_rate(df, bans=True)
 
 hero_dict = create_hero_list(df)
 
@@ -45,7 +46,7 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/':
         return render_layout(df, TIERS, list(hero_dict.keys()), MAPS)
-    elif pathname == '/overtime':
+    elif pathname == '/stats':
         return rl2(list(hero_dict.keys()))
     else:
         return '404'
@@ -79,7 +80,7 @@ hero_drop_down_callback(app, DEFAULT_HERO)
 observations_callback(app, NUMBER_OF_BANS, TIERS, global_store, DEFAULT_COLORMAP)
 
 secondary_app_callback(app, TIERS, ddf, DEFAULT_COLORMAP)
-secondary_pickrate_callback(app, pickrate, DEFAULT_COLORMAP)
+secondary_pickrate_callback(app, pickrate, banrate, DEFAULT_COLORMAP)
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', debug=True)
