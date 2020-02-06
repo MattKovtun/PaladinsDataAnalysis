@@ -12,4 +12,5 @@ def render_layout(heroes):
             axis_dropdown(),
         ]),
         dcc.Graph(id='secondary-hero-comparison-graph'),
+        html.Div(dcc.Graph(id='secondary-pickrate')),
     ], id='secondary', style={"max-width": "1440px", "margin": "auto"})

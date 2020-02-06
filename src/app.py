@@ -5,7 +5,7 @@ from flask_caching import Cache
 from dash.dependencies import Input, Output
 
 from datetime import datetime
-from utils import prepare_data, create_hero_list
+from utils import prepare_data, create_hero_list, calc_pick_rate
 from constants import TIERS, DEFAULT_HERO, MAPS, NUMBER_OF_BANS
 from constants import COLORS, DEFAULT_COLORMAP, CACHE_CONFIG, BAN_SUMMARY, MATCH_SUMMARY
 from layouts.main_app.layout import render_layout
@@ -20,6 +20,7 @@ from callbacks.main_app.observations_graph import observations_callback
 from layouts.secondary_app.layout import render_layout as rl2
 
 from callbacks.secondary_app.over_time import secondary_app_callback
+from callbacks.secondary_app.pickrate import secondary_pickrate_callback
 
 app = dash.Dash(__name__)
 app.config['suppress_callback_exceptions'] = True
@@ -29,6 +30,7 @@ cache.init_app(app.server, config=CACHE_CONFIG)
 
 df = prepare_data(BAN_SUMMARY)
 ddf = prepare_data(MATCH_SUMMARY)
+pickrate = calc_pick_rate(ddf)
 
 hero_dict = create_hero_list(df)
 
@@ -77,6 +79,7 @@ hero_drop_down_callback(app, DEFAULT_HERO)
 observations_callback(app, NUMBER_OF_BANS, TIERS, global_store, DEFAULT_COLORMAP)
 
 secondary_app_callback(app, TIERS, ddf, DEFAULT_COLORMAP)
+secondary_pickrate_callback(app, pickrate, DEFAULT_COLORMAP)
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', debug=True)

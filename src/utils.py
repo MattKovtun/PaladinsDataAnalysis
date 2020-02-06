@@ -13,3 +13,13 @@ def create_hero_list(df):
     x.sort()
     y = [0] * len(x)
     return dict(zip(x, y))
+
+
+def calc_pick_rate(df):
+    matches = df['matchid'].nunique()
+    heroes = df['hero'].unique()
+    heroes.sort()
+    pickrate = []
+    for h in heroes:
+        pickrate.append((h, df[df['hero'] == h].shape[0] / matches))
+    return pickrate
