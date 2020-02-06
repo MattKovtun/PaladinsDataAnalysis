@@ -14,7 +14,13 @@ def render_layout(df, tiers, heroes, maps):
             html.Div([
                 map_selection(maps),
                 date_picker(df),
-                html.Span('*match tier = max tier among players', style={'margin-left': '30px'})
+                html.Span('*match tier = max tier among players', style={'margin-left': '30px'}),
+                html.A('Stats page', href='/stats',
+                       style={'float': 'right', 'margin-right': '60px',
+                              'text-decoration': 'none',
+                              'padding': '5px',
+                              'color': 'black'
+                              })
             ]),
             dcc.Graph(id='main-graph')]),
         html.Div([range_slider(df, tiers)], style={"width": "95%"}),
