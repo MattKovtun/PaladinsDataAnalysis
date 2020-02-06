@@ -83,7 +83,7 @@ secondary_app_callback(app, TIERS, ddf, DEFAULT_COLORMAP)
 secondary_pickrate_callback(app, pickrate, banrate, DEFAULT_COLORMAP)
 
 if __name__ == '__main__':
-    app.run_server(host='0.0.0.0', debug=True)
+    app.run_server(host='0.0.0.0', debug=False)
 
 # refactor code, add config
 # setup cron job, consider rewriting to factory
