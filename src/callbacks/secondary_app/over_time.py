@@ -3,6 +3,22 @@ import plotly.graph_objs as go
 
 
 def secondary_app_callback(app, tiers, df, default_colormap):
+    def calc_win_rate(df, dd_heroes, selected_tiers):
+        scatter_data = {hero: [None] * (len(tiers)) for hero in dd_heroes}
+        text_data = {hero: [None] * (len(tiers)) for hero in dd_heroes}
+
+        for hero in dd_heroes:
+            for tier in range(selected_tiers[0], selected_tiers[1] + 1):
+                total = df[(df['hero'] == hero)
+                           & (df['tier'] == tier)]
+                wins = total[total['winner']].shape[0]
+                total = total.shape[0]
+
+                if total:
+                    scatter_data[hero][tier - 1] = wins / total
+                    text_data[hero][tier - 1] = str(total) + ' games'
+        return scatter_data, text_data
+
     def select_field(data, y_axe, dd_heroes):
         data = data.groupby(['tier', 'hero'])[y_axe]
         mean = data.mean()
@@ -26,7 +42,11 @@ def secondary_app_callback(app, tiers, df, default_colormap):
         max_tier = max(tiers)
         x = [tiers[i] for i in tiers][min_tier - 1:max_tier]
 
-        scatter_data, text_data = select_field(data, y_axe, dd_heroes)
+        if y_axe == 'win_rate':
+            scatter_data, text_data = calc_win_rate(data, dd_heroes, [min(tiers.keys()), max(tiers.keys())])
+        else:
+            scatter_data, text_data = select_field(data, y_axe, dd_heroes)
+
         return {
             'data': [go.Scatter(x=x,
                                 y=scatter_data[hero][min_tier - 1:max_tier], name=hero,

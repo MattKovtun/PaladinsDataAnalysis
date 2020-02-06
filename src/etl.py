@@ -175,10 +175,10 @@ def clean_new():
 if __name__ == "__main__":
     import time
 
-    date = '20200120'
-    end_date = '20200121'
-    # # total_matches_per_day(date, end_date)
-    # scrap_ranked_matches(date, end_date)
+    date = '20200203'
+    end_date = '20200204'
+    # total_matches_per_day(date, end_date)
+    # scrap_ranked_matches(date, end_date   )
 
     #
     # datetime.date(2019, 12, 5): 0, datetime.date(2019, 12, 6): 1905, datetime.date(
