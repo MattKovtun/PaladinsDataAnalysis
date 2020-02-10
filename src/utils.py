@@ -15,14 +15,31 @@ def create_hero_list(df):
     return dict(zip(x, y))
 
 
-def calc_pick_rate(df, bans=False):
-    field = 'hero'
-    if bans:
-        field = 'ban'
+def calc_ban_rate(df):
+    field = 'ban'
     matches = df['matchid'].nunique()
     heroes = df[field].unique()
     heroes.sort()
-    pickrate = []
+    ban_rate = []
     for h in heroes:
-        pickrate.append((h, df[df[field] == h].shape[0] / matches))
-    return pickrate
+        ban_rate.append((h, df[df[field] == h].shape[0] / matches))
+    return ban_rate
+
+
+def calc_pick_rate(bans, picks):
+    p_field = 'hero'
+    b_field = 'ban'
+
+    total_matches = bans['matchid'].nunique()
+    heroes = bans[p_field].unique()
+    heroes.sort()
+    pick_rate = []
+    for h in heroes:
+        bans_n = picks[picks[b_field] == h].shape[0]
+        matches = total_matches - bans_n
+
+        pick_rate.append(
+            (h, bans[bans[p_field] == h].shape[0] / matches)
+        )
+
+    return pick_rate

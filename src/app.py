@@ -5,7 +5,7 @@ from flask_caching import Cache
 from dash.dependencies import Input, Output
 
 from datetime import datetime
-from utils import prepare_data, create_hero_list, calc_pick_rate
+from utils import prepare_data, create_hero_list, calc_ban_rate, calc_pick_rate
 from constants import TIERS, DEFAULT_HERO, MAPS, NUMBER_OF_BANS
 from constants import COLORS, DEFAULT_COLORMAP, CACHE_CONFIG, BAN_SUMMARY, MATCH_SUMMARY
 from layouts.main_app.layout import render_layout
@@ -30,8 +30,8 @@ cache.init_app(app.server, config=CACHE_CONFIG)
 
 df = prepare_data(BAN_SUMMARY)
 ddf = prepare_data(MATCH_SUMMARY)
-pickrate = calc_pick_rate(ddf)
-banrate = calc_pick_rate(df, bans=True)
+pickrate = calc_pick_rate(ddf, df)
+banrate = calc_ban_rate(df)
 
 hero_dict = create_hero_list(df)
 
