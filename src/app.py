@@ -80,7 +80,7 @@ hero_drop_down_callback(app, DEFAULT_HERO)
 observations_callback(app, NUMBER_OF_BANS, TIERS, global_store, DEFAULT_COLORMAP)
 
 secondary_app_callback(app, TIERS, ddf, DEFAULT_COLORMAP)
-secondary_pickrate_callback(app, pickrate, banrate, DEFAULT_COLORMAP)
+secondary_pickrate_callback(app, pickrate, banrate)
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', debug=False)

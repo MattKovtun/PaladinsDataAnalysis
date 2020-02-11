@@ -2,13 +2,13 @@ from dash.dependencies import Input, Output, State
 import plotly.graph_objs as go
 
 
-def secondary_pickrate_callback(app, pickrate, banrate, default_colormap):
+def secondary_pickrate_callback(app, pickrate, banrate):
     @app.callback(Output('secondary-pickrate', 'figure'),
                   [Input('secondary-hero-dropdown', 'value'),
                    Input('secondary-checklist', 'value')])
     def pickrate_calc(heroes, checklist):
-        d = {'bans': [banrate, 'rgba(60, 180, 75, .3)', 'rgb(60, 180, 75)'],
-             'picks': [pickrate, 'rgba(5, 65, 155, .3)', 'rgb(5, 65, 155)']}
+        d = {'bans': [banrate, 'rgba(230, 25, 75, .3)', 'rgb(230, 25, 75)'],
+             'picks': [pickrate, 'rgba(60, 180, 75, .3)', 'rgb(60, 180, 75)']}
 
         def create_scatter(t):
             h = [i[0] for i in d[t][0]]
