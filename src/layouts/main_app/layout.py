@@ -14,7 +14,10 @@ def render_layout(df, tiers, heroes, maps):
             html.Div([
                 map_selection(maps),
                 date_picker(df),
-                html.Span('*match tier = max tier among players', style={'margin-left': '30px'}),
+                html.Div([html.Div('*match tier = max tier among players', style={'margin-left': '20px'}),
+                          html.Div('*click heroes on ban graph',
+                                   style={'margin-left': '20px'})],
+                         style={'display': 'inline-block', 'line-height': '17px'}),
                 html.A('Stats page', href='/stats',
                        style={'float': 'right', 'margin-right': '60px',
                               'text-decoration': 'none',
