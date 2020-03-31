@@ -2,7 +2,11 @@
 ### The idea of the project is to analyze hero bans/picks in Paladins.
 
 ### Here is how main web page should look like 
-![Alt text](./paladins_ban_analysis.png?raw=true "Title")
+![Main page](./paladins_ban_analysis.png?raw=true "Main page")
+### Here is /stats page
+![/stats page](./paladins_ban_analysis_stats.png?raw=true "/stats page")
+
+
 
 ### In order to run web server:
 * `git clone https://github.com/MattKovtun/PaladinsDataAnalysis.git`
