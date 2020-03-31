@@ -176,17 +176,17 @@ def clean_new():
 if __name__ == "__main__":
     import time
 
-    date = '20200205'
-    end_date = '20200206'
-    # total_matches_per_day(date, end_date)
-    scrap_ranked_matches(date, end_date)
+    date = '20200213'
+    end_date = '20200214'
+    ## total_matches_per_day(date, end_date)
+    # scrap_ranked_matches(date, end_date)
 
     #
     # datetime.date(2019, 12, 5): 0, datetime.date(2019, 12, 6): 1905, datetime.date(
     #     2019, 12, 7): 1854, datetime.date(2019, 12, 8): 1861}
 
     # t = time.time()
-    matches_to_tiers(date, 300)
+    # matches_to_tiers(date, 300)
     # t1 = time.time()
     # print(t1 - t)
 

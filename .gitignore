@@ -1,7 +1,10 @@
 .idea
 data/
+!data/processed/ban_summary/v6.csv
+!data/processed/match_summary/v6.csv
 src/dev_creds.py
 src/cache
 **/.DS_Store
 **/.ipynb_checkpoints
 **/__pycache__
+notebooks/
